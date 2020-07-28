@@ -1,0 +1,16 @@
+name: Publish Docker
+on:
+release:
+types: [published]
+
+jobs:
+build:
+runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v1
+    - name: Login to DockerHub Registry
+      run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+    - name: Build the tagged Docker image
+      run: docker build . --file Dockerfile --tag mz47/annabingo-backend:latest
+    - name: Push the tagged Docker image
+      run: docker push mz47/annabingo-backend:latest
