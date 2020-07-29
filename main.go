@@ -9,6 +9,7 @@ import (
 
 func main() {
 	r := gin.New()
+	gin.SetMode(gin.ReleaseMode)
 	r.Use(cors.Default())
 	db, _ := buntdb.Open("annabingo.db")
 	a := app.App{

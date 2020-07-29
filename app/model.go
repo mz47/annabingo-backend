@@ -6,18 +6,18 @@ type BingoMatrix struct {
 
 func TestData() [][]string {
 	return [][]string{
-		[]string{"test", "test", "test", "test"},
-		[]string{"rest", "rest", "rest", "rest"},
-		[]string{"rest", "rest", "rest", "rest"},
-		[]string{"rest", "rest", "rest", "rest"},
+		{"test", "test", "test", "test"},
+		{"rest", "rest", "rest", "rest"},
+		{"rest", "rest", "rest", "rest"},
+		{"rest", "rest", "rest", "rest"},
 	}
 }
 
-func ApiData() [][]string {
-	return [][]string{
-		[]string{"api", "api", "api", "api"},
-		[]string{"api", "api", "api", "api"},
-		[]string{"api", "api", "api", "api"},
-		[]string{"api", "api", "api", "api"},
+func ApiData() [4][4]string {
+	return [4][4]string{
+		{"1", "2", "3", "4"},
+		{"5", "6", "7", "8"},
+		{"9", "10", "11", "12"},
+		{"13", "14", "15", "16"},
 	}
 }

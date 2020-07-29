@@ -6,6 +6,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/tidwall/buntdb"
 	"log"
+	"math/rand"
 )
 
 type App struct {
@@ -29,7 +30,10 @@ func (a *App) HandleGetBingo(c *gin.Context) {
 }
 
 func (a *App) HandleGetTestBingo(c *gin.Context) {
-	c.JSON(200, ApiData())
+	bingo := ApiData()
+	randomBingo := a.shuffle(&bingo)
+
+	c.JSON(200, randomBingo)
 }
 
 func (a *App) HandleGetBingoById(c *gin.Context) {
@@ -48,7 +52,8 @@ func (a *App) HandleGetBingoById(c *gin.Context) {
 		c.Status(500)
 	}
 
-	c.JSON(200, bingo)
+	randomBingo := a.shuffle(&bingo)
+	c.JSON(200, randomBingo)
 }
 
 func (a *App) HandlePostBingo(c *gin.Context) {
@@ -67,4 +72,18 @@ func (a *App) HandlePostBingo(c *gin.Context) {
 
 	log.Println("Received POST data:", bingo)
 	c.String(201, key.String())
+}
+
+func (a *App) shuffle(bingo *[4][4]string) *[4][4]string {
+	for i := len(bingo) - 1; i > 0; i-- {
+		for j := len(bingo[i]) - 1; j > 0; j-- {
+			m := rand.Intn(i + 1)
+			n := rand.Intn(j + 1)
+
+			temp := bingo[i][j]
+			bingo[i][j] = bingo[m][n]
+			bingo[m][n] = temp
+		}
+	}
+	return bingo
 }
