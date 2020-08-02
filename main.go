@@ -11,7 +11,7 @@ func main() {
 	r := gin.New()
 	gin.SetMode(gin.ReleaseMode)
 	r.Use(cors.Default())
-	db, _ := buntdb.Open("annabingo.db")
+	db, _ := buntdb.Open("./db/annabingo.db")
 	a := app.App{
 		Router: r,
 		Db:     db,
