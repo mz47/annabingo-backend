@@ -5,6 +5,7 @@ type BingoMatrix struct {
 }
 
 type Bingo struct {
+	UUID   string       `json:"uuid"`
 	Title  string       `json:"title"`
 	Fields [4][4]string `json:"fields"`
 }

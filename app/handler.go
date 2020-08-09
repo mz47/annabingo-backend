@@ -42,6 +42,18 @@ func (h *BingoHandler) HandlePostBingo(c *gin.Context) {
 	c.String(201, id)
 }
 
+func (h *BingoHandler) HandleSearch(c *gin.Context) {
+	query := c.Param("query")
+	result, err := h.service.SearchBingoByTitle(query)
+	if err != nil {
+		c.Status(500)
+	}
+	if *result == nil && len(*result) == 0 {
+		c.Status(404)
+	}
+	c.JSON(200, result)
+}
+
 func (h *BingoHandler) HandleGetStatistics(c *gin.Context) {
 	count, err := h.service.Count()
 	if err != nil {
@@ -49,4 +61,12 @@ func (h *BingoHandler) HandleGetStatistics(c *gin.Context) {
 	}
 	stats := Stats{Count: count}
 	c.JSON(200, stats)
+}
+
+func (h *BingoHandler) HandleCreateIndex(c *gin.Context) {
+	err := h.service.CreateIndexOnTitle()
+	if err != nil {
+		c.Status(500)
+	}
+	c.Status(200)
 }

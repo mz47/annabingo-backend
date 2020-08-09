@@ -21,6 +21,8 @@ func (a *App) init() {
 	a.router.GET("/api", a.handler.HandleGetTestBingo)
 	a.router.GET("/api/view/:id", a.handler.HandleGetBingoById)
 	a.router.GET("/api/stats", a.handler.HandleGetStatistics)
+	a.router.GET("/api/search/:query", a.handler.HandleSearch)
+	a.router.GET("/api/index", a.handler.HandleCreateIndex)
 	a.router.POST("/api/create", a.handler.HandlePostBingo)
 }
 
