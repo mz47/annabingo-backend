@@ -8,13 +8,12 @@ import (
 )
 
 func main() {
-	r := gin.New()
-	gin.SetMode(gin.ReleaseMode)
-	r.Use(cors.Default())
+	router := gin.New()
+	gin.SetMode(gin.DebugMode)
+	router.Use(cors.Default())
 	db, _ := buntdb.Open("./db/annabingo.db")
-	a := app.App{
-		Router: r,
-		Db:     db,
-	}
+	service := app.NewBingoService(db)
+	handler := app.NewBingoHandler(service)
+	a := app.NewBingoApp(router, handler)
 	a.Run(":8000")
 }
